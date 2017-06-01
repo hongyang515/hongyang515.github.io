@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>深入理解js原型与原型链 | lhyang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要:">
+<meta name="keywords" content="深入理解js原型与原型链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解js原型与原型链">
+<meta property="og:url" content="http://yoursite.com/2015/07/01/深入理解js原型与原型链/index.html">
+<meta property="og:site_name" content="lhyang">
+<meta property="og:description" content="摘要:">
+<meta property="og:updated_time" content="2017-06-01T10:56:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解js原型与原型链">
+<meta name="twitter:description" content="摘要:">
+  
+    <link rel="alternate" href="/atom.xml" title="lhyang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">lhyang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每天进步一点点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-深入理解js原型与原型链" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/01/深入理解js原型与原型链/" class="article-date">
+  <time datetime="2015-07-01T14:37:23.000Z" itemprop="datePublished">2015-07-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日志/">日志</a>►<a class="article-category-link" href="/categories/日志/二级目录/">二级目录</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入理解js原型与原型链
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摘要:<br><a id="more"></a><br>正文:</p>
+<p><font size="4">开篇：JavaScript(以下简称js) 是唯一一个被广泛使用的基于原型继承的语言，所以原型与原型链在js中至关重要。最近重读《Javascript高级程序设计》，该书对原型链的原型对象的讲述，使我感触颇多，现用简洁明了的文字介绍JavaScript的原型及原型链。</font></p>
+<p>###1. 普通对象与函数对象<br>万物皆对象，js将对象分为两种：普通对象和函数对象。其中，自带的函数对象包括：Function 和 Object;<br>    示例永远是对知识点最好的说明，举例如下：</p>
+<pre><code>function f1(){}; 
+var f2 = function(){};
+var f3 = new Function(&apos;f3&apos;,&apos;console.log(f3)&apos;);
+
+var o1 = {}; 
+var o2 =new Object();
+var o3 = new f1();
+</code></pre><p> 通过new functiong() 是区分函数对象和普通对象的关键, 所以上面变量的类型分别为：<br>console.log(typeof(f1), typeof(f2), typeof(f3));<br> //function function function<br>console.log(typeof(o1), typeof(o1), typeof(o1));<br>//object object object</p>
+<p>Function Object 也都是通过 New Function()创建的，所以，<br>    typeof(Object), typeof(function()) 也是funtion。</p>
+<p>###2.原型对象<br>js中，任何对象都隐含一个<code>__proto__</code>的属性, 即原型(属性)，它就是一个Object类型对象，用于指向创建它的构造函数的原型对象。<br>任何情况下，只要创建了函数对象，就会根据特定规则创建一个prototype属性，指向函数的原型对象，注意<code>prototype属性只有函数对象有，而普通对象没有</code><br>示例：</p>
+<pre><code>function Person() {}
+Person.prototype = {
+    name: &quot;xiaoming&quot;,
+    age: &apos;18&apos;,
+    introduce: function() {
+        console.log(`my name is ${this.name}`, `age is ${this.age}` )
+    }
+}
+var person1 = new Person();
+person1.introduce(); // my name is xiaoming age is 18
+
+var person2 = new Person();
+person2.introduce(); // my name is xiaoming age is 18
+</code></pre><p>上面的例子中，Person.prototype就是原型对象，例中给原型对象添加了三个属性，分别是<code>name, age, introduce</code>另外，该原型对象还有一个默认的constructor属性。<br><code>注：js中所有原型对象都有一个默认属性，即constructor，并且指向protype所在函数</code><br>所以Person.prototype.constructor = Person<br>person1.__proto<strong> == person2.__proto</strong> == Person.prototype // persion1和persion2是通过 new persion创建，所以peision1和persion2的__proto__指向Persion的prototype</p>
+<p>###三.原型链<br>如上节所述，任何对象都隐含一个<code>__proto__</code>的属性，所以js在创建对象时，会存在一个<strong>proto</strong>的内置属性，用于指向创建它的函数对象的原型对象prototype，利用上面例子进行说明：<br>person1.__proto<strong> == Person.prototype<br>同时，Person.prototype也存在__proto</strong>， 即Person.prototype.__proto<strong> == Object.prototype,<br>而且，Object.prototype对象同样存在__proto</strong>属性，它的值是null，即Object.prototype.__proto__ == null</p>
+<p>我们将由persion1，以及父的__proto<strong>串起来的直到Object.prototype.__proto</strong>为null的链叫做原型链，<br><code>即原型链的定义为: 每个对象和原型都有原型，对象的原型指向原型对象，而父的原型又指向父的父，这种原型层层连接起来的就构成了原型链。</code></p>
+<p> ###四. Function 和 Object<br> 在js中，一切对象都是Object的实例，一切函数都是Function的实例。<br> Object是构造函数，所以它是Function的实例，而Function.prototype是对象，所以Function.prototype是Object的实例对象。即: </p>
+<pre><code>Object.__proto__ = Function.prototype
+Function.prototype.__proto__ == Object.prototype
+</code></pre><p> ###五. 总结</p>
+<ol>
+<li>任何对象都有__proto__属性，该属性指向构造函数的prototype。</li>
+<li>函数对象除了有__proto__属性，同事拥有prototype属性，并指向该方法的原型对象。</li>
+<li>原型链的最终指向是null。</li>
+<li>原型链的形成是真正是靠<strong>proto</strong> 而非prototype。</li>
+</ol>
+<p>*最后用一道经典面试题试试水：</p>
+<pre><code>var F = function(){};  
+Object.prototype.a = function(){};  
+Function.prototype.b = function(){};  
+var f = new F();
+问：调用f.a( )和f.b( ) 能成功么？
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/07/01/深入理解js原型与原型链/" data-id="cj3eb41o50000rwfyp5wey8jj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深入理解js原型与原型链/">深入理解js原型与原型链</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/日志/">日志</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日志/二级目录/">二级目录</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/深入理解js原型与原型链/">深入理解js原型与原型链</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/深入理解js原型与原型链/" style="font-size: 10px;">深入理解js原型与原型链</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/07/01/深入理解js原型与原型链/">深入理解js原型与原型链</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 lihongyang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
