@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>React Router 完整的 React 路由解决方案 | lhyang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要:">
+<meta name="keywords" content="React Router 完整的 React 路由解决方案">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Router 完整的 React 路由解决方案">
+<meta property="og:url" content="http://yoursite.com/2017/01/27/ReactRouter完整的React路由解决方案/index.html">
+<meta property="og:site_name" content="lhyang">
+<meta property="og:description" content="摘要:">
+<meta property="og:updated_time" content="2017-06-02T02:27:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Router 完整的 React 路由解决方案">
+<meta name="twitter:description" content="摘要:">
+  
+    <link rel="alternate" href="/atom.xml" title="lhyang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">lhyang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每天进步一点点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ReactRouter完整的React路由解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/27/ReactRouter完整的React路由解决方案/" class="article-date">
+  <time datetime="2017-01-27T00:45:03.000Z" itemprop="datePublished">2017-01-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日志/">日志</a>►<a class="article-category-link" href="/categories/日志/二级目录/">二级目录</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React Router 完整的 React 路由解决方案
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摘要:<br><a id="more"></a><br>正文:</p>
+<h2 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">  React Router 保持 UI 与 URL 同步。它拥有简单的 API 与强大的功能例如代码缓冲加载、动态路由匹配、以及建立正确的位置过渡处理。</div><div class="line">所谓的路由并不是指硬件设备的路由，但其原理相同，假设提供的web服务器的网址是0.0.0.0.而网页又提供三个供用户访问的页面，分别是：</div><div class="line">1.http://0.0.0.0/</div><div class="line">2.http://0.0.0.0/about</div><div class="line">3.http://0.0.0.0/my</div></pre></td></tr></table></figure>
+<p>这三个页面的路径分别是／，／about，／my<br>      使用 React Router 来配置上面例子中的三个页面，每个页面分别对应着一个 React Component：</p>
+<h3 id="about-页面的入口文件-about-js"><a href="#about-页面的入口文件-about-js" class="headerlink" title="/about 页面的入口文件 about.js"></a>/about 页面的入口文件 about.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import React from &apos;react&apos;;</div><div class="line">class About extends React.Component &#123;</div><div class="line">      render () &#123;</div><div class="line">             return (</div><div class="line">                   This is About page.</div><div class="line">             );</div><div class="line">      &#125;</div><div class="line">&#125;;</div><div class="line">export default About;</div></pre></td></tr></table></figure>
+<h3 id="my页面的入口文件my-js"><a href="#my页面的入口文件my-js" class="headerlink" title="/my页面的入口文件my.js"></a>/my页面的入口文件my.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> import React from &apos;react&apos;;</div><div class="line">class My extends React.Compoent&#123;</div><div class="line">      render()&#123;</div><div class="line">             return(</div><div class="line">                    This is Concat page.</div><div class="line">             );</div><div class="line">      &#125;</div><div class="line">&#125;</div><div class="line">export default My;</div></pre></td></tr></table></figure>
+<h3 id="首页对应的是-app-js，它也是整个-React-Component-的入口文件。"><a href="#首页对应的是-app-js，它也是整个-React-Component-的入口文件。" class="headerlink" title="/ 首页对应的是 app.js，它也是整个 React Component 的入口文件。"></a>/ 首页对应的是 app.js，它也是整个 React Component 的入口文件。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import React from &apos;react&apos;</div><div class="line">import &#123; Router, Route, Link &#125; from &apos;react-router&apos;</div><div class="line">const App = React.createClass(&#123;</div><div class="line">        render() &#123;</div><div class="line">                return (</div><div class="line">                      &lt;div&gt;</div><div class="line">                      &lt;h1&gt;App&lt;/h1&gt;</div><div class="line">                      &lt;ul&gt;</div><div class="line">                            &lt;li&gt;&lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;&lt;/li&gt;</div><div class="line">                            &lt;li&gt;&lt;Link to=&quot;/inbox&quot;&gt;My&lt;/Link&gt;&lt;/li&gt;</div><div class="line">                      &lt;/ul&gt;</div><div class="line">                      &#123;this.props.children&#125;</div><div class="line">                      &lt;/div&gt;</div><div class="line">                )</div><div class="line">          &#125;</div><div class="line">  &#125;)</div><div class="line">  export default App;</div><div class="line">   app.js 中的 Link 组件是 React  #Router 提供的组件，用于链接到相应页面。它和a标签实行的功能是一</div></pre></td></tr></table></figure>
+<p>样的，但是a标签相当于整个页面的跳转，而 Link只是内部路由跳转，不需要重新加载整个页面。</p>
+<h3 id="index-js实现对-route-的配置，同时在该文件中对-React-Component-进行-render。"><a href="#index-js实现对-route-的配置，同时在该文件中对-React-Component-进行-render。" class="headerlink" title="index.js实现对 route 的配置，同时在该文件中对 React Component 进行 render。"></a>index.js实现对 route 的配置，同时在该文件中对 React Component 进行 render。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> import React from &apos;react&apos;;</div><div class="line"> import ReactDOM from &apos;react-dom&apos;;</div><div class="line"> import createBrowserHistory from &apos;history/lib/createBrowserHistory&apos;;</div><div class="line"> import App from &apos;./component/app&apos;;</div><div class="line"> import About from &apos;./component/about&apos;;</div><div class="line"> import Concat from &apos;./component/my&apos;;</div><div class="line"> import &#123;Router, Route&#125; from &apos;react-router&apos;;</div><div class="line">const history = createBrowserHistory();</div><div class="line"></div><div class="line">React.render((</div><div class="line">        &lt;Router&gt;</div><div class="line">                 &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</div><div class="line">                         &lt;Route path=&quot;about&quot; component=&#123;About&#125; /&gt;</div><div class="line">                         &lt;Route path=&quot;my&quot; component=&#123;My&#125; /&gt;</div><div class="line">                 &lt;/Route&gt;</div><div class="line">      &lt;/Router&gt;</div><div class="line"> ), document.body)</div></pre></td></tr></table></figure>
+<h2 id="默认首页的添加："><a href="#默认首页的添加：" class="headerlink" title="默认首页的添加："></a>默认首页的添加：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  上面代码中，访问根路径/，不会加载任何子组件。也就是说，App组件的this.props.children，这时是undefined。因此，通常会采用&#123;this.props.children || &amp;lt;Home/&gt;&#125;这样的写法。这时，Home明明是About和My的同级组件，却没有写在Route中。IndexRoute就是解决这个问题，显式指定Home就是根路由的子组件，即指定默认情况下加载的子组件。你可以把IndexRoute想象成某个路径的index.html。如下写法：</div><div class="line"> &lt;Router&gt;</div><div class="line">        &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</div><div class="line">                 &lt;IndexRoute component=&#123;Home&#125;/&gt;</div><div class="line">                 &lt;Route path=&quot;about&quot; component=&#123;About&#125; /&gt;</div><div class="line">                 &lt;Route path=&quot;my&quot; component=&#123;My&#125; /&gt;</div><div class="line">        &lt;/Route&gt;</div><div class="line">&lt;/Router&gt;</div></pre></td></tr></table></figure>
+<p>现在，用户访问/的时候，加载的组件结构如下。<br>     <app><br>             <home><br>     </home></app></p>
+<h2 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">实际应用中，路由是分多个层级的。我们可以使用react-router的路由嵌套来清晰的管理路由和组件之间的切换展示。</div><div class="line">当调用一个url时，React Router会优先对URL相匹配的路由进行深度遍历，渲染view。</div></pre></td></tr></table></figure>
+<h2 id="路径匹配"><a href="#路径匹配" class="headerlink" title="路径匹配"></a>路径匹配</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">特殊字符匹配方式：</div><div class="line">        :paramName:匹配一段位于 /、? 或 # 之后的 URL。 命中的部分将被作为一个参数</div><div class="line">              例：&lt;Route path=&quot;/hello/:name&quot;&gt;</div><div class="line">                  // 匹配 /hello/michael</div><div class="line">                  // 匹配 /hello/ryan</div><div class="line">        ():在它内部的内容被认为是可选的</div><div class="line">               //即 ()内部的内容可有可无，都可以命中</div><div class="line">        * 匹配任意字符（非贪婪的）直到命中下一个字符或者整个 URL 的末尾，并创建一个 splat 参数</div><div class="line">               //&lt;Route path=&quot;/files/*.*&quot;&gt;           // 匹配 /files/hello.jpg 和 /files/path/to/hello.jpg</div></pre></td></tr></table></figure>
+<p>  ＊注 带参数的路径一般要写在路由规则的底部</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/01/27/ReactRouter完整的React路由解决方案/" data-id="cj3f88rh40007g1fyd82m67bc" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Router-完整的-React-路由解决方案/">React Router 完整的 React 路由解决方案</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/05/27/深入理解js原型与原型链/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          深入理解js原型与原型链
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/日志/">日志</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日志/二级目录/">二级目录</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Router-完整的-React-路由解决方案/">React Router 完整的 React 路由解决方案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深入理解js原型与原型链/">深入理解js原型与原型链</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/React-Router-完整的-React-路由解决方案/" style="font-size: 10px;">React Router 完整的 React 路由解决方案</a> <a href="/tags/深入理解js原型与原型链/" style="font-size: 10px;">深入理解js原型与原型链</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/05/27/深入理解js原型与原型链/">深入理解js原型与原型链</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/27/ReactRouter完整的React路由解决方案/">React Router 完整的 React 路由解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 lihongyang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="http://apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof jQuery == 'undefined') {
+document.write(unescape("%3Cscript src='/js/jquery-2.0.3.min.js' type='text/javascript'%3E%3C/script%3E"));
+}
+// ]]>
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
